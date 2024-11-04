@@ -24,7 +24,7 @@ kubectl get all -n web-nginx-2
 
 Bước 2: Tạo nginx-proxy, dockerize nginx-proxy rồi triển khai trên minikube
 
-Trước khi triển khai nginx-proxy, ta phải kiểm tra xem ở web1 và web2, các service của chúng có ở dạng ClusterIP không? Tạo sao service web1 và web2 phải để ở ClusterIP và service của nginx-proxy ở NodePort?
+Trước khi triển khai nginx-proxy, ta phải kiểm tra xem ở web1 và web2, các service của chúng có ở dạng ClusterIP không? Tạo sao service web1 và web2 nên để ở ClusterIP và service của nginx-proxy ở NodePort?
 
 -> Mục đích của ClusterIP: Tạo một địa chỉ IP nội bộ cho service trong cluster để các pod khác (như nginx-proxy) có thể truy cập chúng mà không cần ra ngoài mạng cluster.
 
