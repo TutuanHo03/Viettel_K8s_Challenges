@@ -23,6 +23,15 @@ kubectl get all -n web-nginx-2
 ![Screenshot from 2024-11-04 21-15-17](https://github.com/user-attachments/assets/cb6b3656-f22e-4959-9c32-407ae45e67bd)
 
 Bước 2: Tạo nginx-proxy, dockerize nginx-proxy rồi triển khai trên minikube
+
+Trước khi triển khai nginx-proxy, ta phải kiểm tra xem ở web1 và web2, các service của chúng có ở dạng ClusterIP không? Tạo sao service web1 và web2 phải để ở ClusterIP và service của nginx-proxy ở NodePort?
+
+-> Mục đích của ClusterIP: Tạo một địa chỉ IP nội bộ cho service trong cluster để các pod khác (như nginx-proxy) có thể truy cập chúng mà không cần ra ngoài mạng cluster.
+
+-> Lý do sử dụng: Nginx proxy chạy bên trong cluster và cần truy cập các service của web1 và web2 thông qua địa chỉ nội bộ. Với type ClusterIP, các service chỉ khả dụng từ bên trong cluster, điều này là đủ cho Nginx để định tuyến các yêu cầu.
+
+-> Service của nginx-proxy cần có type NodePort để các yêu cầu từ bên ngoài cluster có thể truy cập vào proxy này. NodePort mở một cổng cụ thể trên mỗi node trong cluster, và khi có yêu cầu tới cổng đó, nó sẽ chuyển tiếp vào pod Nginx proxy.
+
 ```bash
 cd nginx-proxy
 //Các bước docker build với push, em đã thực hiện và đẩy lên Docker Hub rồi, nên bỏ qua bước này
